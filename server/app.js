@@ -1,9 +1,16 @@
 import express from "express";
+import connection from "./config/db.js";
 const app = express();
 
+const gettasks = (req, res) => {
+  connection.query("SELECT * FROM tasks", (error, results) => {
+    if (error) throw error;
+    res.json(results);
+  });
+};
 
 /* app.use(require("cors")()); */
-
+app.get('/tasks',gettasks)
 const items = [
   {
     task: "sport",
