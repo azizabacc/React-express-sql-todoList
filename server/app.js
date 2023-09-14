@@ -1,38 +1,31 @@
 import express from "express";
-import connection from "./config/db.js";
+import bodyParser from "body-parser";
+/* import cors from "cors"; */
+import router from "./controllers/index.js";
 const app = express();
-
-const gettasks = (req, res) => {
-  connection.query("SELECT * FROM tasks", (error, results) => {
-    if (error) throw error;
-    res.json(results);
-  });
+/* const corsOptions = {
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  Credentials: true,
 };
 
-/* app.use(require("cors")()); */
-app.get('/tasks',gettasks)
-const items = [
-  {
-    task: "sport",
-    checked: "false",
-  },
-  {
-    task: "study",
-    checked: "false",
-  },
-];
-app.get("/", (req, res) => {
- // serve react app
-});
+app.use(cors(corsOptions)) */
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 
-app.get("/api/items", (req, res) => {
-  try {
-    res.send(items);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
-  }
-});
+app.get("/", (req, res) => {
+  // serve react app
+ });
+ 
+
+app.use('/api', router)
+/* app.use(require("cors")()); */
+
+
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log("Server started"));
