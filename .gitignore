@@ -28,5 +28,4 @@ package-lock.json
 public
 node_modules
 server/node_modules
-src/assets
 README.md
