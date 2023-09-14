@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import { NewForm } from "./NewForm";
+import {TasksList} from './TasksList';
 
 function App() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    axios.get("/api/items")
+    axios.get("/api/tasks")
       .then(res => {
         // Axios automatically parses JSON response
         setItems(res.data);
@@ -15,21 +17,11 @@ function App() {
       });
   }, []);
 
-  const renderItems = () => {
-    return items.map((item, i) => {
-      return (
-        <div key={i}>
-          <h3>{item.task}</h3>
-          <p>Checked : {item.checked}</p>
-        </div>
-      );
-    });
-  }
-
   return (
     <main>
       <h1>TodoList</h1>
-      {renderItems()}
+      <NewForm />
+      <TasksList items={items} />
     </main>
   );
 }
