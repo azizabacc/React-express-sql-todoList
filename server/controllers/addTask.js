@@ -4,7 +4,7 @@ const addTask = (req, res) => {
   const task = req.body.task;
   const query = "INSERT INTO tasks (task_name) VALUES (?)";
   const value = [task];
-  // Vérifiez si task est null ou une chaîne vide
+  // check if ull or empty
   if (!task) {
     return res.status(400).json({
       success: false,
